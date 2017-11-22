@@ -2,14 +2,26 @@ console.log('client.js is loaded');
 
 $(document).ready(function(){
     console.log('JQ');
-$('#addTask').on('click', addTask);  
+$('#addTask').on('click', function(){
+    var taskObject = {
+        task: $('input').val()
+    }
+    addTask(taskObject);
+});  
+
+
 }) //end of ready
 
-function addTask (){
-    console.log('addTask button clicked');
-    
+function addTask (newTask){
+    console.log('addTask button clicked', newTask);
     //this will add a new task, it is a POST
-
+$.ajax({
+    method: 'POST',
+    url: '/toDo',
+    data: newTask,
+    success: function( data ){
+        console.log( 'New tasks: ', data );
+}})
     getTasks();
 } //end of addTask
 

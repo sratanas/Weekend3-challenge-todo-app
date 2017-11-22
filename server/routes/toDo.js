@@ -4,7 +4,24 @@ var pool = require('../modules/pool')
 
 // route.get and route.put etc will be in here
 
-
+router.post('/', function(req, res){
+    pool.connect(function(errorConnectingToDatabase, client, done){
+      if (errorConnectingToDatabase){
+        console.log('Error conecting to database', errorConnectingToDatabase);
+      } else{
+        client.query(`INSERT INTO tasks (task)
+          VALUES ($1);`, [req.body.task], function(errorMakingQuery, result){
+              done();
+              if (errorMakingQuery){
+                console.log('Error making query', errorMakingQuery);
+                res.sendStatus(500);
+              } else{
+                res.sendStatus(201);
+              }
+          })
+      }
+    })
+  })
 
 router.get('/', function(req, res){
     pool.connect(function(errorConnectingToDatabase, client, done){
