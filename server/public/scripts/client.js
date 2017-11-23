@@ -7,6 +7,8 @@ $('#addTask').on('click', function(){
         task: $('input').val()
     }
     addTask(taskObject);
+
+$('#viewTasks').on('click', '.deleteButton', deleteTask)
 });  
 
 
@@ -21,13 +23,58 @@ $.ajax({
     data: newTask,
     success: function( data ){
         console.log( 'New tasks: ', data );
+        getTasks();
 }})
-    getTasks();
+   
 } //end of addTask
 
 function getTasks(){
-    console.log('in getTasks');
+    console.log( 'in getTasks' );
+    // ajax call to server to get koalas
+    $.ajax({
+      url: '/toDo',
+      type: 'GET',
+      success: function(response){
+        console.log( 'got some tasks ', response);
+        $('#viewTasks').empty();
+        
+          for (var i = 0; i < response.length; i++){
+              var task = response[i];
+              var $newTask = $('<tr>' + '<td>' + task.task + '</td>'+ '</tr>');
+            
+              //create and appending delete button
+              var $deleteTaskButton = $('<button class = "deleteButton">Delete</button>');
+              $newTask.append($deleteTaskButton);
+              $deleteTaskButton.data('id',task.id);
+
+              //create and append complete button
+              var $completedButton = $('<button class = "completedButton">Completed</button>');
+              $newTask.append($completedButton);
+              $completedButton.data('id', task.id);
+
+              //append tasks to view tasks table
+              $('#viewTasks').append($newTask);
+          }
+        
+        
+        }   // end success
     
-    //this will get the whole list of tasks from the database with updated info
-    // it is a GET
-} //end of getTasks
+    }); //end ajax
+  }; // end getTasks
+
+  function deleteTask(){
+    console.log($(this).data());
+    var taskToRemove = $(this).data().id;
+    console.log('Clicked delete, task id was ', taskToRemove);
+    $.ajax({
+      method: 'DELETE',
+      url:'/toDo/' + taskToRemove,
+      success: function(response){
+        console.log('task deleted!');
+        
+        getTasks();
+      }
+    })
+      
+  } //end delete tasks
+
