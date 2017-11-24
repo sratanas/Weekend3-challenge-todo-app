@@ -3,3 +3,28 @@ input {
     width: 400px;
 }
 
+
+
+#taskTable td {
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    width: 400px;
+    /* background: rgb(190, 190, 190) */
+}
+
+#taskTable tr {
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    width: 400px;
+}
+
+
+.deleteButton{
+    float: right;
+}
+
+.completedButton {
+    float: right;
+}
