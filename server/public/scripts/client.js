@@ -6,6 +6,7 @@ $(document).ready(function(){
 $('#addTask').on('click', function(){
     var taskObject = {
         task: $('input').val(),
+        completed: 'No'
     
     }
     addTask(taskObject);
@@ -101,6 +102,7 @@ function getTasks(){
     
     console.log('Task completed, the task ID was, ', taskToSetComplete);
     var completed =  $(this).parent().children('#tableId')
+    var deletedMove = $(this).parent().children('.deleteButton')
     $.ajax({
       method: 'PUT',
       url:'/toDo/' + taskToSetComplete,
@@ -109,13 +111,8 @@ function getTasks(){
         console.log('Task complete success', response);
         //need to add CSS to change to green, possibly move to bottom?
 
-        // $('#tableId').css('background-color','green');       
-        // $('#tableId').remove(taskToMove);
-        // $(this).remove('.completedButton')
-        // $(this).remove(completed)
-        $('#viewTasks').remove('.completedButton')
+
         $('#viewComplete').append(completed).css('background-color','green');
-        // getTasks();
       }
     })
 

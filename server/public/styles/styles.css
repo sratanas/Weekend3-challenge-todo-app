@@ -10,7 +10,7 @@ input {
     border-color: black;
     border-style: solid;
     width: 400px;
-    /* background: rgb(190, 190, 190) */
+    background: rgb(190, 190, 190)
 }
 
 #taskTable tr {
