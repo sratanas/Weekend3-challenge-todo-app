@@ -4,27 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel = "stylesheet" href = "styles/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <script src = "vendors/jquery-3.2.1.min.js"></script>
     <script src = "scripts/client.js"></script>
     <title>Weekend 3 Challenge - To Do App</title>
 </head>
 <body>
-    <h1>Weekend 3 Challenge - To Do App</h1>
-    <input type = "text"  placeholder = "Enter item to do!">
+  <div id = "headerAndInput">
+    <h1>all the things to do</h1>
+    <p id = "todaysDate">hello</p>
+    <input type = "text"  id = "enterTask" placeholder = "Enter item to do!">
     <button id = "addTask">ADD TASK</button>
-<br><br><br>
-
-        <h2>To Do List</h2>
+  </div>
+  <div id = "taskTableDiv">
+        <h3>to do</h3>
         <table id = "taskTable">
-            <thead>
+            <!-- <thead>
               <tr>
               </tr>
-            </thead>
+            </thead> -->
             <tbody id="viewTasks">
+              <tr>
+            </tr>
             </tbody>
           </table>
-    
+        </div>
+        <div id = "completedTableDiv">
+          <h3>completed tasks</h3>
           <table id = "completedTable">
                 <thead>
                   <tr>
@@ -33,6 +41,6 @@
                 <tbody id="viewComplete">
                 </tbody>
               </table>
-
+            </div>
 </body>
 </html>

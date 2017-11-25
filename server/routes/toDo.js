@@ -79,7 +79,7 @@ router.get('/', function(req, res){
         } else {
             //we connected to the database!!!
             //now we are going to GET things from the DB .gets should have selects in them
-            client.query(`UPDATE tasks SET completed = 'Yes' WHERE id=$1`, [taskToSetComplete], function (errorMakingQuery, result) { // this is the callback function we make after our query runs
+            client.query(`UPDATE tasks SET completed = 'Yes' WHERE id=$1;`, [taskToSetComplete], function (errorMakingQuery, result) { // this is the callback function we make after our query runs
                 //can't put req.body ^ here or you'll get hacked    
                 done(); //it just ran, close the connection we don't need it anymore, put it back in the pool
                 if (errorMakingQuery) {
@@ -98,4 +98,30 @@ router.get('/', function(req, res){
 }); // end router.put
 
 
+
+
+// EXPERIMENTS
+router.get('/', function(req, res){
+  pool.connect(function(errorConnectingToDatabase, client, done){
+    if (errorConnectingToDatabase){
+      console.log('Error connecting to database', errorConnectingToDatabase);
+      res.sendStatus(500);
+      
+    } else {
+      client.query(`SELECT * FROM tasks WHERE completed = 'Yes' ORDER BY id;`, function(errorMakingQuery, result){
+        done();
+        if (errorMakingQuery){
+          console.log('Error making query', errorMakingQuery);
+          res.sendStatus(500);
+          
+        }else {
+          res.send(result.rows);
+        }
+      })
+    }
+  })
+})
+
 module.exports = router;
+
+// VALUES ($1);`, [req.body.task]
